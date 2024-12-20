@@ -37,8 +37,18 @@ public class AtletaController {
         return atletaService.updateAtleta(id,atleta);
     }
 
-    @DeleteMapping("/deleteAtleta")
+    @DeleteMapping("/deleteAtleta/{id}")
     public AtletaDTO deleteAtleta(@PathVariable("id") Integer id) {
         return atletaService.deleteAtleta(id);
+    }
+
+    @GetMapping("/tennis2000")
+    public List<AtletaDTO> getTennis2000() {
+        return atletaService.atletiTennis2000();
+    }
+
+    @GetMapping("/piuAltiDellaMedia")
+    public List<AtletaDTO> getPiuAltiDellaMedia() {
+        return atletaService.atletiPiuAltiDellaMedia();
     }
 }

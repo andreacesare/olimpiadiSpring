@@ -13,6 +13,16 @@ public class AtletaDTO {
     private Integer altezza_cm;
     private SportDTO sport;
 
+    public AtletaDTO() {}
+    public AtletaDTO(Integer id, String nome, String cognome, Integer anno,Integer altezza_cm) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.anno = anno;
+        this.altezza_cm = altezza_cm;
+
+    }
+
     public Integer getId(){return this.id;}
     public void setId(Integer id){this.id = id;}
     public String getNome(){return this.nome;}

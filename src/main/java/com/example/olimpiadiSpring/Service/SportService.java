@@ -6,9 +6,7 @@ import com.example.olimpiadiSpring.Entity.Sport;
 import com.example.olimpiadiSpring.Repository.SportRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class SportService {
@@ -52,5 +50,28 @@ public class SportService {
         }
         sportRepository.delete(sport);
         return sportDTO;
+    }
+
+    public List<SportDTO> sportDiSquadra(){
+        List<Sport> sports=sportRepository.findAll();
+        List<SportDTO> lista=sports.stream().filter(s->s.getNgiocatori()>1).map(SportConverter::toDTOnotAtleti).toList();
+        return lista;
+    }
+
+    public Map<String,Long> sportConNumeroAtleti(){
+        List<Object[]> lista=sportRepository.getSportConNumeroAtleti();
+        Map<String,Long> mapa=new HashMap<>();
+        for(Object[] o:lista) {
+            String sportDTO=(String) o[0];
+            Long numeroAtleti=(Long) o[1];
+            mapa.put(sportDTO,numeroAtleti);
+        }
+        return mapa;
+
+    }
+
+    public List<SportDTO> sport2Atleti() {
+        return sportRepository.getSportConNumeroAtleti2();
+
     }
 }

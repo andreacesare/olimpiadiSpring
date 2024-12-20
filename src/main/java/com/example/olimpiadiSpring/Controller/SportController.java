@@ -6,6 +6,7 @@ import com.example.olimpiadiSpring.Service.SportService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sport")
@@ -38,5 +39,20 @@ public class SportController {
     @DeleteMapping("/deleteSport/{id}")
     public SportDTO deleteSport(@PathVariable("id") Integer id) {
         return sportService.deleteSport(id);
+    }
+
+    @GetMapping("/sportDiSquadra")
+    public List<SportDTO> getSportDiSquadra() {
+        return sportService.sportDiSquadra();
+    }
+
+    @GetMapping("/sportNumeroAtleti")
+    public Map<String, Long> getSportNumeroAtleti() {
+        return sportService.sportConNumeroAtleti();
+    }
+
+    @GetMapping("/sportAlmeno2Atleti")
+    public List<SportDTO> getSportAlmeno2Atleti() {
+        return sportService.sport2Atleti();
     }
 }

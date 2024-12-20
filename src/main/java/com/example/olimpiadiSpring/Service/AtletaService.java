@@ -38,8 +38,8 @@ public class AtletaService {
         atleta.setCognome(atletaDTO.getCognome());
         atleta.setAnno(atletaDTO.getAnno());
         atleta.setAltezza_cm(atletaDTO.getAltezza_cm());
-        if(atletaDTO!=null) {
-            Sport sport = sportRepository.findById(atletaDTO.getId()).orElseThrow(() -> new NoSuchElementException("Sport no encontrado"));
+        if(atletaDTO.getSport()!=null) {
+            Sport sport = sportRepository.findById(atletaDTO.getSport().getId()).orElseThrow(() -> new NoSuchElementException("Sport no encontrado"));
             atleta.setSport(sport);
             sport.getAtleti().add(atleta);
             sportRepository.save(sport);
@@ -68,8 +68,24 @@ public class AtletaService {
         AtletaDTO atletaDTO=AtletaConverter.toDTOnotSport(atleta);
         if(atleta.getSport()!=null){
             atleta.getSport().getAtleti().remove(atleta);
+            sportRepository.save(atleta.getSport());
             atleta.setSport(null);
         }
+        atletaRepository.delete(atleta);
         return atletaDTO;
+    }
+
+    public List<AtletaDTO> atletiTennis2000(){
+        List<Atleta> atletas = atletaRepository.findAll();
+        List<AtletaDTO> lista=atletas.stream().filter(a->a.getSport()!=null
+                &&a.getSport().getNome().equals("Tennis")
+                &&a.getAnno()>1999)
+                .map(AtletaConverter::toDTOnotSport)
+                .toList();
+        return lista;
+    }
+
+    public List<AtletaDTO> atletiPiuAltiDellaMedia(){
+        return atletaRepository.atletiPiuAltiDellaMedia();
     }
 }

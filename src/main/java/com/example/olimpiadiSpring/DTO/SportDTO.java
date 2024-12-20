@@ -14,6 +14,13 @@ public class SportDTO {
     private Integer ngiocatori;
     private List<AtletaDTO> atleti=new ArrayList<>();
 
+    public SportDTO() {}
+    public SportDTO(Integer id, String nome, Integer ngiocatori) {
+        this.id = id;
+        this.nome = nome;
+        this.ngiocatori = ngiocatori;
+    }
+
 
     public Integer getId() {return id;}
     public String getNome() {return nome;}
